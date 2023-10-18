@@ -59,6 +59,7 @@ const dispatch: CompaniesDispatch = useDispatch()
        <img src={avatar_url} alt={login} />
        <h3>{id}</h3>
        <h1>{login}</h1>
+       <button>Show More</button>
        </article>
        )
       }) }
