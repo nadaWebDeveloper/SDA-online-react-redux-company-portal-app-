@@ -1,6 +1,5 @@
 import { ThunkDispatch } from "@reduxjs/toolkit"
-import companySlice from  '../TScomponents/CompanySlice';
-import {fetchCompanies} from  '../TScomponents/CompanySlice'
+import companySlice, {fetchCompanies}  from  '../TScomponents/CompanySlice'
 
 
 export type Company =
@@ -24,7 +23,7 @@ export type CompanyState =
    company: Company[],
    isLoading: boolean,
    error: string | null,
-   searchTerm: number,
+   searchTerm: string | number ,
 }
 
 // // Infer the `RootState` and `AppDispatch` types from the store itself

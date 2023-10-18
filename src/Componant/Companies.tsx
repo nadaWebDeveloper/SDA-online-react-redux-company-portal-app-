@@ -5,13 +5,12 @@ import App from './App.css'
 import {fetchCompanies} from '../TScomponents/CompanySlice'
 import {CompaniesDispatch} from '../TScomponents/type'
 import {searchCompany} from '../TScomponents/CompanySlice'
+import {Company} from '../TScomponents/type'
 
 
 const Companies = () => {
 
-const {company, isLoading, error, searchTerm} = useSelector(
-   (state: RootState) => state.companiesR
-   ); 
+const {company, isLoading, error, searchTerm} = useSelector((state: RootState) => state.companiesR); 
 const dispatch: CompaniesDispatch = useDispatch()
  
    useEffect(() =>
@@ -24,12 +23,24 @@ const dispatch: CompaniesDispatch = useDispatch()
 
    const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
    {
-      dispatch(searchCompany(Number(event.target.value)));
+      dispatch(searchCompany(event.target.value));
 }
-
+    //search by id and by name
    const filteredCompany = searchTerm
-   ? company.filter((company) => company.id === searchTerm)
-   : company;
+   ? company.filter((company) => {
+      if (typeof searchTerm === 'number') {
+          return company.id === searchTerm;
+      } else {
+          return company.login.toLowerCase().includes((searchTerm as string).toLowerCase());
+      }
+    } )
+   : company;                                                                                                                                                      // property 'toLowerCase' does not exist on type 'string | number'. 'toLowerCase' does not exist on type 'number' 
+
+   //search by name
+   // const filteredCompany = searchTerm
+   // ? company.filter((company) => company.login.toLowerCase().includes(searchTerm.toLowerCase()) )
+   // : company;
+   // company.id === Number(searchTerm) || company.login.toLowerCase().includes(searchTerm.toLowerCase())
 
   return (
 <>
@@ -37,7 +48,7 @@ const dispatch: CompaniesDispatch = useDispatch()
     <h1>companies</h1>
     <input type="text" placeholder="Search Company" onChange={handleSearch} value={searchTerm}/>
     <section className="companies">
-      {filteredCompany.length > 0 && filteredCompany.map((company) => {
+      {filteredCompany.length > 0 && filteredCompany.map((company: Company) => {
        const {id, login, avatar_url} = company;
        return (
        <article key={id} className="company">
