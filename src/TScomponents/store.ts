@@ -1,14 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
-import CompanySlice from "./CompanySlice";
+import companySlice from  '../TScomponents/CompanySlice';
+
+
+
 
 
 
 export const store = configureStore({
-    reducer:
-    {
-        companiesR: CompanySlice,
+    reducer:{
+        companiesR: companySlice,
     }
 
 })
+
 
 export default store;

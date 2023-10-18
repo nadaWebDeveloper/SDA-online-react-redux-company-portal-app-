@@ -1,5 +1,6 @@
 import Companies from './Componant/Companies'
 import './App.css'
+import CardMediaTop from './Componant/CardMediaTop'
 
 function App() {
  
@@ -7,6 +8,7 @@ function App() {
   return (
 <>
 <Companies />
+<CardMediaTop />
 </>
   )}
 

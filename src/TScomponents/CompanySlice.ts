@@ -3,7 +3,7 @@ import {CompanyState} from './type'
 
 
 //call the API for the fetching the data
-export const fetchCompanies = createAsyncThunk('companies/fetchCompanies', async() =>
+export const fetchCompanies = createAsyncThunk('company/fetchCompanies', async() =>
 {
     const response = await fetch('https://api.github.com/organizations');
     if(!response.ok)
@@ -19,16 +19,21 @@ export const fetchCompanies = createAsyncThunk('companies/fetchCompanies', async
 
 const initialState: CompanyState =
 {
-    companies: [],
+    company: [],
     isLoading: false,
-    error: null
+    error: null,
+    searchTerm: 0,
 }
 
 
 const companySlice = createSlice({
-name:'companies',
+name:'company',
 initialState: initialState,
-reducers:{},
+reducers:{
+    searchCompany: (state, action) =>{
+        state.searchTerm = action.payload;
+    }
+},
 extraReducers: (builder) =>
 {
     builder
@@ -40,7 +45,7 @@ extraReducers: (builder) =>
     .addCase(fetchCompanies.fulfilled, (state, action) => 
     {
         state.isLoading = false;
-        state.companies = action.payload;
+        state.company = action.payload;
     }) 
      .addCase(fetchCompanies.rejected, (state, action) => 
     {
@@ -51,5 +56,5 @@ extraReducers: (builder) =>
 
 });
 
-
+export const {searchCompany} =  companySlice.actions;
 export default companySlice.reducer;

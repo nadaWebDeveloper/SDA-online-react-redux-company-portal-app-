@@ -1,6 +1,7 @@
 import { ThunkDispatch } from "@reduxjs/toolkit"
-import CompanySlice from "./CompanySlice"
-import {fetchCompanies} from './CompanySlice'
+import companySlice from  '../TScomponents/CompanySlice';
+import {fetchCompanies} from  '../TScomponents/CompanySlice'
+
 
 export type Company =
 {
@@ -20,17 +21,31 @@ export type Company =
 
 export type CompanyState =
 {
-   companies: Company[],
+   company: Company[],
    isLoading: boolean,
-   error: string | null
+   error: string | null,
+   searchTerm: number,
 }
 
+// // Infer the `RootState` and `AppDispatch` types from the store itself
+// export type RootState = ReturnType<typeof store.getState>;
+
+// // Inferred type: {users: UsersState}
+// export type AppDispatch = typeof store.dispatch;
+
+// export type RootState =
+// {
+//     // companiesR: ReturnType<typeof store.getState>
+//     companiesR: ReturnType<typeof CompanySlice>
+
+// }
 
 export type RootState =
 {
-    companiesR: ReturnType<typeof CompanySlice>;
-}
+    // companiesR: ReturnType<typeof store.getState>
+    companiesR: ReturnType<typeof companySlice>;
 
+}
 
  type fetchCompaniesPendingAction = 
  ReturnType<typeof fetchCompanies.pending>; 
@@ -43,11 +58,18 @@ ReturnType<typeof fetchCompanies.fulfilled>;
  type fetchCompaniesRejectedAction = 
  ReturnType<typeof fetchCompanies.rejected>; 
 
+ type searchCompanyAction =
+ {
+    type: 'company/searchCompany';
+    payload: number
+ }
+
 
  export type CompaniesAction =
  | fetchCompaniesPendingAction
  | fetchCompaniesFulfilledAction
- | fetchCompaniesRejectedAction;
+ | fetchCompaniesRejectedAction
+ | searchCompanyAction;
 
  export type CompaniesDispatch =
  ThunkDispatch<RootState, void, CompaniesAction>;
