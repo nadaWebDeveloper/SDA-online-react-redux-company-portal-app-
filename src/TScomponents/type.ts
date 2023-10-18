@@ -60,15 +60,21 @@ ReturnType<typeof fetchCompanies.fulfilled>;
  type searchCompanyAction =
  {
     type: 'company/searchCompany';
-    payload: number
+    payload: number | string
  }
 
+ type sortCompanyAction =
+ {
+    type: 'company/sortCompany';
+    payload: string
+ }
 
  export type CompaniesAction =
  | fetchCompaniesPendingAction
  | fetchCompaniesFulfilledAction
  | fetchCompaniesRejectedAction
- | searchCompanyAction;
+ | searchCompanyAction
+ | sortCompanyAction;
 
  export type CompaniesDispatch =
  ThunkDispatch<RootState, void, CompaniesAction>;

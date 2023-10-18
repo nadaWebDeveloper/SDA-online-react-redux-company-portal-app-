@@ -30,8 +30,17 @@ const companySlice = createSlice({
 name:'company',
 initialState: initialState,
 reducers:{
-    searchCompany: (state, action) =>{
-        state.searchTerm = action.payload;
+    searchCompany: (state, action) =>{ state.searchTerm = action.payload;},
+    sortCompany:(state,action)=>{
+        const sortingCriteria = action.payload;
+        if(sortingCriteria === 'login')
+        {
+            state.company.sort((a,b) => a.login.localeCompare(b.login))
+        }
+        else if (sortingCriteria === 'id')
+        {
+            state.company.sort((a,b) => a.id - b.id)
+        }
     }
 },
 extraReducers: (builder) =>
@@ -56,5 +65,5 @@ extraReducers: (builder) =>
 
 });
 
-export const {searchCompany} =  companySlice.actions;
+export const {searchCompany, sortCompany} =  companySlice.actions;
 export default companySlice.reducer;

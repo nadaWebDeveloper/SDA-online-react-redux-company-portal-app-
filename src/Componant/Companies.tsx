@@ -6,6 +6,7 @@ import {fetchCompanies} from '../TScomponents/CompanySlice'
 import {CompaniesDispatch} from '../TScomponents/type'
 import {searchCompany} from '../TScomponents/CompanySlice'
 import {Company} from '../TScomponents/type'
+import SortCompany from "./SortCompany"
 
 
 const Companies = () => {
@@ -46,7 +47,10 @@ const dispatch: CompaniesDispatch = useDispatch()
 <>
    <div>
     <h1>companies</h1>
+    <div className="">
     <input type="text" placeholder="Search Company" onChange={handleSearch} value={searchTerm}/>
+    <SortCompany />
+    </div>
     <section className="companies">
       {filteredCompany.length > 0 && filteredCompany.map((company: Company) => {
        const {id, login, avatar_url} = company;
