@@ -15,6 +15,17 @@ export const fetchCompanies = createAsyncThunk('company/fetchCompanies', async()
     return data;
 })
 
+export const fetchCompany = createAsyncThunk('company/fetchCompany', async(id: number) =>
+{
+    const response = await fetch(`https://api.github.com/orgs/${id}`);
+    if(!response.ok)
+    {
+       throw new Error('Network Error');
+    }
+    const data = await response.json();
+    console.log(data)
+    return data;
+})
 
 
 const initialState: CompanyState =
@@ -23,6 +34,7 @@ const initialState: CompanyState =
     isLoading: false,
     error: null,
     searchTerm: 0,
+    singleCompany: null,
 }
 
 
@@ -57,6 +69,23 @@ extraReducers: (builder) =>
         state.company = action.payload;
     }) 
      .addCase(fetchCompanies.rejected, (state, action) => 
+    {
+        state.isLoading = false;
+        state.error = action.error.message || 'An Error Occurred';
+    })
+
+    //single Page
+    .addCase(fetchCompany.pending, (state) => 
+    {
+        state.isLoading = true;
+        state.error = null;
+    })
+    .addCase(fetchCompany.fulfilled, (state, action) => 
+    {
+        state.isLoading = false;
+        state.singleCompany = action.payload;
+    }) 
+     .addCase(fetchCompany.rejected, (state, action) => 
     {
         state.isLoading = false;
         state.error = action.error.message || 'An Error Occurred';

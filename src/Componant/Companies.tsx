@@ -7,6 +7,8 @@ import {CompaniesDispatch} from '../TScomponents/type'
 import {searchCompany} from '../TScomponents/CompanySlice'
 import {Company} from '../TScomponents/type'
 import SortCompany from "./SortCompany"
+import {Link} from 'react-router-dom'
+
 
 
 const Companies = () => {
@@ -21,6 +23,7 @@ const dispatch: CompaniesDispatch = useDispatch()
 
    if (isLoading) return <div>Loading...</div>;
    if (error) return <div>Error: {error}</div>;
+   console.log({company})
 
    const handleSearch = (event: ChangeEvent<HTMLInputElement>) =>
    {
@@ -59,7 +62,9 @@ const dispatch: CompaniesDispatch = useDispatch()
        <img src={avatar_url} alt={login} />
        <h3>{id}</h3>
        <h1>{login}</h1>
+       <Link to={`/Companies/${id}`}>
        <button>Show More</button>
+       </Link>
        </article>
        )
       }) }

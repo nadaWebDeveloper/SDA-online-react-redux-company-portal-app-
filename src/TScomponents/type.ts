@@ -1,5 +1,5 @@
 import { ThunkDispatch } from "@reduxjs/toolkit"
-import companySlice, {fetchCompanies}  from  '../TScomponents/CompanySlice'
+import companySlice, {fetchCompanies, fetchCompany}  from  '../TScomponents/CompanySlice'
 
 
 export type Company =
@@ -24,6 +24,7 @@ export type CompanyState =
    isLoading: boolean,
    error: string | null,
    searchTerm: string | number ,
+   singleCompany: Company | null,
 }
 
 // // Infer the `RootState` and `AppDispatch` types from the store itself
@@ -57,6 +58,21 @@ ReturnType<typeof fetchCompanies.fulfilled>;
  type fetchCompaniesRejectedAction = 
  ReturnType<typeof fetchCompanies.rejected>; 
 
+ //single page
+
+ type fetchCompanyPendingAction = 
+ ReturnType<typeof fetchCompany.pending>; 
+
+
+ type fetchCompanyFulfilledAction = 
+ReturnType<typeof fetchCompany.fulfilled>; 
+
+
+ type fetchCompanyRejectedAction = 
+ ReturnType<typeof fetchCompany.rejected>; 
+
+
+
  type searchCompanyAction =
  {
     type: 'company/searchCompany';
@@ -74,7 +90,10 @@ ReturnType<typeof fetchCompanies.fulfilled>;
  | fetchCompaniesFulfilledAction
  | fetchCompaniesRejectedAction
  | searchCompanyAction
- | sortCompanyAction;
+ | sortCompanyAction
+ | fetchCompanyPendingAction
+ | fetchCompanyFulfilledAction
+ | fetchCompanyRejectedAction;
 
  export type CompaniesDispatch =
  ThunkDispatch<RootState, void, CompaniesAction>;
