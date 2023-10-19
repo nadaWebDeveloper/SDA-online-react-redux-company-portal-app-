@@ -1,13 +1,12 @@
-import { useDispatch, useSelector } from "react-redux"
-import {RootState} from '../TScomponents/type'
 import { ChangeEvent, useEffect } from "react"
-import App from './App.css'
+import { useDispatch, useSelector } from "react-redux"
+
 import {fetchCompanies} from '../TScomponents/CompanySlice'
-import {CompaniesDispatch} from '../TScomponents/type'
+import {Company,RootState,CompaniesDispatch} from '../TScomponents/type'
 import {searchCompany} from '../TScomponents/CompanySlice'
-import {Company} from '../TScomponents/type'
 import SortCompany from "./SortCompany"
 import {Link} from 'react-router-dom'
+
 
 
 
